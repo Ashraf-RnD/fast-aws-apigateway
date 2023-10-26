@@ -1,0 +1,24 @@
+version: '3.9'
+volumes:
+  fast_vol:
+services:
+    fast-aws-apigateway:
+      container_name: fast-aws-apigateway
+      build:
+        context: ./Docker
+        dockerfile: Dockerfile
+      image: fast-aws-apigateway
+      environment:
+        - ENV=DEV
+      ports:
+        - "9501:9501"
+      command:
+        - "uvicorn"
+        - "app:app"
+        - "--host"
+        - "0.0.0.0"
+        - "--port"
+        - "9501"
+      volumes:
+        - fast_vol:/app/backend/fast
+
